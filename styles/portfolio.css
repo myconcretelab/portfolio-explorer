@@ -1,0 +1,36 @@
+.portfolio-app {
+  padding: 1rem;
+  font-family: 'Helvetica Neue', sans-serif;
+  color: #222;
+  background: #fafafa;
+}
+
+.portfolio-tree .MuiListItemButton-root {
+  padding-left: 0;
+}
+
+.portfolio-breadcrumbs {
+  margin-bottom: 1rem;
+}
+
+.portfolio-grid img {
+  width: 100%;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+}
+
+.portfolio-grid img:hover {
+  transform: scale(1.02);
+}
+
+.portfolio-loader {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+@media (max-width: 600px) {
+  .portfolio-grid {
+    column-count: 2 !important;
+  }
+}
