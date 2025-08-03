@@ -1,9 +1,4 @@
 <?php
-/**
- * Plugin Name: Portfolio RML REST
- * Description: Expose Real Media Library tree via REST API.
- */
-
 // Register custom REST route
 function portfolio_rml_register_rest() {
     register_rest_route('portfolio/v1', '/tree', array(

@@ -5,8 +5,14 @@
   background: #fafafa;
 }
 
-.portfolio-tree .MuiListItemButton-root {
+.portfolio-tree {
   padding-left: 0;
+  list-style: none;
+}
+
+.portfolio-tree li {
+  cursor: pointer;
+  margin-bottom: .25rem;
 }
 
 .portfolio-breadcrumbs {
