@@ -1,0 +1,11 @@
+{
+  "apiVersion": 2,
+  "name": "portfolio/explorer",
+  "title": "Portfolio Explorer",
+  "category": "widgets",
+  "icon": "images-alt2",
+  "description": "Explorateur de portfolio avec navigation en arborescence et galerie.",
+  "editorScript": "file:build/index.js",
+  "viewScript": "file:build/index.js",
+  "style": "file:build/style-index.css"
+}
