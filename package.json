@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "echo \"Building assets\""
+    "build": "echo \"Building assets\"",
+    "postinstall": "cp githooks/post-merge .git/hooks/post-merge && chmod +x .git/hooks/post-merge"
   }
 }

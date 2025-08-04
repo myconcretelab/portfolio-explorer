@@ -4,33 +4,44 @@
     var useEffect = element.useEffect;
     var useBlockProps = blockEditor.useBlockProps;
 
-    function PortfolioExplorer(){
-        var _a = useState([]), tree = _a[0], setTree = _a[1];
-        var _b = useState(null), current = _b[0], setCurrent = _b[1];
-        var _c = useState([]), path = _c[0], setPath = _c[1];
+     function PortfolioExplorer(){
+         console.log('PortfolioExplorer component mounted');
+         var _a = useState([]), tree = _a[0], setTree = _a[1];
+         var _b = useState(null), current = _b[0], setCurrent = _b[1];
+         var _c = useState([]), path = _c[0], setPath = _c[1];
 
-        useEffect(function(){
-            fetch('/wp-json/portfolio/v1/tree').then(function(res){return res.json();}).then(function(data){
-                setTree(data);
-                setCurrent({ name: 'Racine', children: data, images: [] });
-            });
-        }, []);
+         useEffect(function(){
+             console.log('Fetching portfolio tree...');
+             fetch('/wp-json/portfolio/v1/tree').then(function(res){
+                 console.log('Portfolio tree response', res);
+                 return res.json();
+             }).then(function(data){
+                 console.log('Received tree data', data);
+                 setTree(data);
+                 setCurrent({ name: 'Racine', children: data, images: [] });
+             }).catch(function(err){
+                 console.error('Failed to load portfolio tree', err);
+             });
+         }, []);
 
-        function openFolder(folder){
-            setPath(path.concat([folder]));
-            setCurrent(folder);
-        }
+         function openFolder(folder){
+             console.log('Opening folder', folder);
+             setPath(path.concat([folder]));
+             setCurrent(folder);
+         }
 
-        function goTo(index){
-            var newPath = path.slice(0, index);
-            var folder = index === 0 ? { name: 'Racine', children: tree, images: [] } : path[index-1];
-            setPath(newPath);
-            setCurrent(folder);
-        }
+         function goTo(index){
+             console.log('Navigating to index', index);
+             var newPath = path.slice(0, index);
+             var folder = index === 0 ? { name: 'Racine', children: tree, images: [] } : path[index-1];
+             setPath(newPath);
+             setCurrent(folder);
+         }
 
-        if(!current){
-            return el('div', {className: 'portfolio-loader'}, 'Chargement...');
-        }
+         if(!current){
+             console.log('Current folder not set yet, showing loader');
+             return el('div', {className: 'portfolio-loader'}, 'Chargement...');
+         }
 
         var breadcrumbs = el('div', {className: 'portfolio-breadcrumbs'},
             [el('span', {key: 'root', onClick: function(){ setPath([]); setCurrent({ name: 'Racine', children: tree, images: [] }); }}, 'Racine')]
@@ -75,12 +86,14 @@
         }
     });
 
-    if(typeof document !== 'undefined' && !document.body.classList.contains('wp-admin')){
-        document.addEventListener('DOMContentLoaded', function(){
-            document.querySelectorAll('.wp-block-portfolio-explorer').forEach(function(node){
-                element.render(el(PortfolioExplorer), node);
-            });
-        });
-    }
+     if(typeof document !== 'undefined' && !document.body.classList.contains('wp-admin')){
+         document.addEventListener('DOMContentLoaded', function(){
+             console.log('DOM ready, initializing portfolio explorer blocks');
+             document.querySelectorAll('.wp-block-portfolio-explorer').forEach(function(node){
+                 console.log('Rendering PortfolioExplorer in node', node);
+                 element.render(el(PortfolioExplorer), node);
+             });
+         });
+     }
 
 })(window.wp.blocks, window.wp.element, window.wp.blockEditor);
