@@ -1,4 +1,4 @@
-(function(blocks, element, blockEditor){
+(function(blocks, element, blockEditor, apiFetch){
     var el = element.createElement;
     var useState = element.useState;
     var useEffect = element.useEffect;
@@ -10,19 +10,16 @@
          var _b = useState(null), current = _b[0], setCurrent = _b[1];
          var _c = useState([]), path = _c[0], setPath = _c[1];
 
-         useEffect(function(){
-             console.log('Fetching portfolio tree...');
-             fetch('/wp-json/portfolio/v1/tree').then(function(res){
-                 console.log('Portfolio tree response', res);
-                 return res.json();
-             }).then(function(data){
-                 console.log('Received tree data', data);
-                 setTree(data);
-                 setCurrent({ name: 'Racine', children: data, images: [] });
-             }).catch(function(err){
-                 console.error('Failed to load portfolio tree', err);
-             });
-         }, []);
+        useEffect(function(){
+            console.log('Fetching portfolio tree...');
+            apiFetch({ path: '/portfolio/v1/tree' }).then(function(data){
+                console.log('Received tree data', data);
+                setTree(data);
+                setCurrent({ name: 'Racine', children: data, images: [] });
+            }).catch(function(err){
+                console.error('Failed to load portfolio tree', err);
+            });
+        }, []);
 
          function openFolder(folder){
              console.log('Opening folder', folder);
@@ -96,4 +93,4 @@
          });
      }
 
-})(window.wp.blocks, window.wp.element, window.wp.blockEditor);
+})(window.wp.blocks, window.wp.element, window.wp.blockEditor, window.wp.apiFetch);
