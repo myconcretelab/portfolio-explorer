@@ -46,11 +46,14 @@ function portfolio_rml_build_tree($parent_id = 0) {
             );
         }
 
+        $thumb_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
         $tree[] = array(
-            'id'       => $term->term_id,
-            'name'     => $term->name,
-            'children' => portfolio_rml_build_tree($term->term_id),
-            'images'   => $images,
+            'id'          => $term->term_id,
+            'name'        => $term->name,
+            'description' => $term->description,
+            'thumb'       => $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'medium' ) : null,
+            'children'    => portfolio_rml_build_tree( $term->term_id ),
+            'images'      => $images,
         );
     }
 
