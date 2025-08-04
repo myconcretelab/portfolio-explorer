@@ -39,9 +39,17 @@
             }))
         );
 
+        var folderMeta = el('div', {className: 'portfolio-folder-meta'}, [
+            current.thumb ? el('img', {src: current.thumb, alt: current.name}) : null,
+            current.description ? el('p', null, current.description) : null
+        ]);
+
         var folders = current.children && current.children.length ? el('ul', {className: 'portfolio-tree'},
             current.children.map(function(child){
-                return el('li', {key: child.id, onClick: function(){ openFolder(child); }}, child.name);
+                return el('li', {key: child.id, onClick: function(){ openFolder(child); }}, [
+                    child.thumb ? el('img', {src: child.thumb, alt: child.name}) : null,
+                    child.name
+                ]);
             })
         ) : null;
 
@@ -51,7 +59,7 @@
             })
         ) : null;
 
-        return el('div', {className: 'portfolio-app'}, [breadcrumbs, folders, images]);
+        return el('div', {className: 'portfolio-app'}, [breadcrumbs, folderMeta, folders, images]);
     }
 
     blocks.registerBlockType('portfolio/explorer', {

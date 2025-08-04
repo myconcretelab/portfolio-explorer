@@ -19,6 +19,22 @@
   margin-bottom: 1rem;
 }
 
+.portfolio-folder-meta img {
+  max-width: 100%;
+  margin-bottom: .5rem;
+}
+
+.portfolio-folder-meta p {
+  margin: 0 0 1rem;
+}
+
+.portfolio-tree img {
+  width: 40px;
+  height: auto;
+  margin-right: .5rem;
+  vertical-align: middle;
+}
+
 .portfolio-grid img {
   width: 100%;
   border-radius: 4px;
